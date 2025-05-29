@@ -2,41 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hey Aparajita</title>
   <style>
     :root {
-      --bg-color-light: #f4f4f4;
-      --card-color-light: #ffffff;
-      --text-color-light: #222222;
-      --accent-light: #999999;
-
-      --bg-color-dark: #121212;
-      --card-color-dark: #1e1e1e;
-      --text-color-dark: #e0e0e0;
-      --accent-dark: #888888;
-
+      --bg-color: #f4f4f4;
+      --card-color: #ffffff;
+      --text-color: #222222;
+      --accent: #999999;
       --transition-speed: 0.4s;
       --font: 'Helvetica Neue', sans-serif;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: var(--bg-color-light);
-      color: var(--text-color-light);
+      background-color: var(--bg-color);
       font-family: var(--font);
+      color: var(--text-color);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      margin: 0;
-      transition: background-color var(--transition-speed), color var(--transition-speed);
+      transition: background-color var(--transition-speed);
       overflow-x: hidden;
-      position: relative;
-    }
-    body.dark {
-      background-color: var(--bg-color-dark);
-      color: var(--text-color-dark);
     }
 
     header, .container, .footer {
@@ -50,31 +44,22 @@
 
     header h1 {
       font-size: 3rem;
+      color: var(--text-color);
       margin-bottom: 0.5rem;
     }
 
     header p {
       font-size: 1.2rem;
-      color: var(--accent-light);
-      transition: color var(--transition-speed);
-    }
-    body.dark header p {
-      color: var(--accent-dark);
+      color: var(--accent);
     }
 
     .container {
       width: 90%;
       max-width: 900px;
-      background: var(--card-color-light);
+      background: var(--card-color);
       padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-      transition: background var(--transition-speed), color var(--transition-speed);
-      position: relative;
-    }
-    body.dark .container {
-      background: var(--card-color-dark);
-      color: var(--text-color-dark);
     }
 
     .message {
@@ -88,24 +73,14 @@
       font-style: italic;
       font-size: 1rem;
       text-align: center;
-      color: var(--accent-light);
+      color: var(--accent);
       margin-top: 2rem;
-      transition: color var(--transition-speed);
-    }
-    body.dark .quote {
-      color: var(--accent-dark);
     }
 
     .footer {
       margin-top: 3rem;
       font-size: 0.9rem;
-      color: var(--accent-light);
-      transition: color var(--transition-speed);
-      text-align: center;
-      user-select: none;
-    }
-    body.dark .footer {
-      color: var(--accent-dark);
+      color: var(--accent);
     }
 
     .fade-in {
@@ -121,31 +96,19 @@
       }
     }
 
-    /* Center the next button */
-    .next-button-container {
-      display: flex;
-      justify-content: center;
-    }
-
     .next-button {
+      margin-top: 2rem;
       padding: 0.75rem 1.5rem;
-      background: var(--text-color-light);
+      background: var(--text-color);
       color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background var(--transition-speed);
-      font-size: 1rem;
-      user-select: none;
     }
+
     .next-button:hover {
       background: #444;
-    }
-    body.dark .next-button {
-      background: var(--text-color-dark);
-    }
-    body.dark .next-button:hover {
-      background: #666;
     }
 
     .slide {
@@ -160,28 +123,15 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background-color: var(--bg-color-light);
+      background-color: var(--bg-color);
       padding: 2rem;
-      transition: opacity 0.6s ease, transform 0.6s ease, background-color var(--transition-speed), color var(--transition-speed);
-      color: var(--text-color-light);
-      z-index: 10;
-    }
-    body.dark .slide {
-      background-color: var(--bg-color-dark);
-      color: var(--text-color-dark);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     .slide.active {
       display: flex;
       opacity: 1;
       transform: translateY(0);
-      position: relative;
-      z-index: 20;
-    }
-
-    h2 {
-      margin-bottom: 1rem;
-      user-select: none;
     }
 
     .emoji-picker {
@@ -194,7 +144,6 @@
     .emoji {
       cursor: pointer;
       transition: transform 0.3s;
-      user-select: none;
     }
 
     .emoji:hover {
@@ -205,121 +154,13 @@
       margin-top: 1.5rem;
       font-size: 1.2rem;
       text-align: center;
+      color: var(--text-color);
     }
 
     .pet {
       font-size: 4rem;
       margin-top: 2rem;
       transition: transform 0.4s ease;
-      user-select: none;
-    }
-
-    /* Light/Dark toggle styles */
-    .toggle-switch {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      width: 50px;
-      height: 26px;
-      background: #ccc;
-      border-radius: 13px;
-      cursor: pointer;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-      transition: background var(--transition-speed);
-      user-select: none;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      padding: 2px;
-    }
-    body.dark .toggle-switch {
-      background: #444;
-    }
-    .toggle-thumb {
-      width: 22px;
-      height: 22px;
-      background: white;
-      border-radius: 50%;
-      transition: transform var(--transition-speed);
-      box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-    .toggle-switch.dark .toggle-thumb {
-      transform: translateX(24px);
-      background: #222;
-    }
-
-    /* Breathing exercise styles */
-    .breath-circle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background-color: var(--accent-light);
-      opacity: 0.6;
-      animation: breathAnim 8s ease-in-out infinite;
-      user-select: none;
-      margin: 2rem auto;
-      transition: background-color var(--transition-speed);
-    }
-    body.dark .breath-circle {
-      background-color: var(--accent-dark);
-    }
-
-    @keyframes breathAnim {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: scale(1.4);
-        opacity: 0.9;
-      }
-    }
-
-    /* Mood history list */
-    .history-list {
-      margin-top: 1rem;
-      width: 100%;
-      max-width: 300px;
-      list-style: none;
-      padding-left: 0;
-      user-select: none;
-    }
-    .history-list li {
-      font-size: 1.5rem;
-      padding: 0.4rem 0.7rem;
-      border-bottom: 1px solid var(--accent-light);
-      transition: border-color var(--transition-speed);
-    }
-    body.dark .history-list li {
-      border-color: var(--accent-dark);
-    }
-
-    /* Navigation buttons */
-    .nav-buttons {
-      margin-top: 2rem;
-      display: flex;
-      gap: 1rem;
-      user-select: none;
-    }
-    .nav-button {
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      background: var(--text-color-light);
-      color: #fff;
-      transition: background var(--transition-speed);
-      flex: 1;
-    }
-    .nav-button:hover {
-      background: #444;
-    }
-    body.dark .nav-button {
-      background: var(--text-color-dark);
-    }
-    body.dark .nav-button:hover {
-      background: #666;
     }
 
     @media (max-width: 600px) {
@@ -329,21 +170,11 @@
       .message {
         font-size: 1rem;
       }
-      .breath-circle {
-        width: 120px;
-        height: 120px;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Light/Dark Mode Toggle -->
-  <div id="toggle-switch" class="toggle-switch" aria-label="Toggle light/dark mode" role="switch" tabindex="0">
-    <div class="toggle-thumb"></div>
-  </div>
-
-  <!-- Slide 1: Welcome -->
-  <div class="main-slide active">
+  <div class="main-slide">
     <header class="fade-in">
       <h1>Hey Aparajita 🌿</h1>
       <p>You're not alone. You're deeply loved.</p>
@@ -364,9 +195,7 @@
         </p>
       </div>
       <div class="quote">“The wound is the place where the light enters you.” — Rumi</div>
-      <div class="next-button-container">
-        <button class="next-button" onclick="showSlide('mood-slide')">Pick your mood 🌈</button>
-      </div>
+      <button class="next-button" onclick="showMoodSlide()">Pick your mood 🌈</button>
     </div>
 
     <div class="footer fade-in">
@@ -374,7 +203,6 @@
     </div>
   </div>
 
-  <!-- Slide 2: Mood Picker -->
   <div class="slide" id="mood-slide">
     <h2>How are you feeling right now?</h2>
     <div class="emoji-picker">
@@ -386,146 +214,32 @@
     </div>
     <div class="mood-text" id="mood-text"></div>
     <div class="pet" id="virtual-pet"></div>
-
-    <div class="nav-buttons">
-      <button class="nav-button" onclick="showSlide('breathing-slide')">Try a breathing exercise 🌬️</button>
-      <button class="nav-button" onclick="showSlide('history-slide')">View mood history 📈</button>
-      <button class="nav-button" onclick="showSlide('main-slide')">Back Home 🏠</button>
-    </div>
-  </div>
-
-  <!-- Slide 3: Breathing Exercise -->
-  <div class="slide" id="breathing-slide">
-    <h2>Breathe with me</h2>
-    <div class="breath-circle"></div>
-    <p style="text-align:center; max-width:400px; user-select:none;">
-      Slowly breathe in as the circle grows, then breathe out as it shrinks. Repeat this for calmness and peace.
-    </p>
-    <div class="nav-buttons">
-      <button class="nav-button" onclick="showSlide('mood-slide')">Back to Mood Picker</button>
-      <button class="nav-button" onclick="showSlide('main-slide')">Back Home</button>
-    </div>
-  </div>
-
-  <!-- Slide 4: Mood History -->
-  <div class="slide" id="history-slide">
-    <h2>Your Mood History</h2>
-    <ul class="history-list" id="history-list">
-      <!-- Mood entries go here -->
-    </ul>
-    <div class="nav-buttons">
-      <button class="nav-button" onclick="showSlide('mood-slide')">Back to Mood Picker</button>
-      <button class="nav-button" onclick="showSlide('main-slide')">Back Home</button>
-    </div>
   </div>
 
   <script>
-    // Slide management
-    function showSlide(id) {
-      document.querySelectorAll('.slide, .main-slide').forEach(slide => {
-        slide.classList.remove('active');
-        slide.style.display = 'none';
-      });
-      const target = document.getElementById(id);
-      if (target) {
-        target.style.display = 'flex';
-        setTimeout(() => {
-          target.classList.add('active');
-        }, 10);
-      }
+    function showMoodSlide() {
+      document.querySelector('.main-slide').style.display = 'none';
+      document.getElementById('mood-slide').classList.add('active');
     }
-
-    // Mood & pet mapping + mood history storage
-    const moodTexts = {
-      '😊': "That's wonderful! Keep spreading your joy. 💖",
-      '😢': "It's okay to feel sad. Let yourself feel it, and know you're not alone. 🌧️",
-      '😡': "Anger is valid too. Take deep breaths—you’ve got this. 🔥",
-      '😌': "Peace looks good on you. Hold onto it. 🌿",
-      '😴': "You deserve rest. Please take care of yourself. 🌙"
-    };
-    const pets = {
-      '😊': '🐶',
-      '😢': '🐧',
-      '😡': '🐯',
-      '😌': '🐱',
-      '😴': '🐻'
-    };
 
     function showMood(emoji) {
-      document.getElementById('mood-text').innerText = moodTexts[emoji];
-      document.getElementById('virtual-pet').innerText = pets[emoji];
-      saveMood(emoji);
+      const text = {
+        '😊': "That's wonderful! Keep spreading your joy. 💖",
+        '😢': "It's okay to feel sad. Let yourself feel it, and know you're not alone. 🌧️",
+        '😡': "Anger is valid too. Take deep breaths—you’ve got this. 🔥",
+        '😌': "Peace looks good on you. Hold onto it. 🌿",
+        '😴': "You deserve rest. Please take care of yourself. 🌙"
+      };
+      const pet = {
+        '😊': '🐶',  // Happy dog
+        '😢': '🐧',  // Comforting penguin
+        '😡': '🐯',  // Fierce tiger
+        '😌': '🐱',  // Calm cat
+        '😴': '🐻'   // Sleepy bear
+      };
+      document.getElementById('mood-text').innerText = text[emoji];
+      document.getElementById('virtual-pet').innerText = pet[emoji];
     }
-
-    // Save mood to localStorage history (max 20 entries)
-    function saveMood(mood) {
-      let history = JSON.parse(localStorage.getItem('moodHistory')) || [];
-      const timestamp = new Date().toLocaleString();
-      history.unshift({ mood, time: timestamp });
-      if (history.length > 20) history.pop();
-      localStorage.setItem('moodHistory', JSON.stringify(history));
-    }
-
-    // Load and display mood history
-    function loadHistory() {
-      const historyList = document.getElementById('history-list');
-      historyList.innerHTML = '';
-      let history = JSON.parse(localStorage.getItem('moodHistory')) || [];
-      if (history.length === 0) {
-        historyList.innerHTML = '<li>No mood history yet.</li>';
-        return;
-      }
-      history.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = `${entry.mood} — ${entry.time}`;
-        historyList.appendChild(li);
-      });
-    }
-
-    // Light/Dark mode toggle
-    const toggleSwitch = document.getElementById('toggle-switch');
-    function setTheme(dark) {
-      if (dark) {
-        document.body.classList.add('dark');
-        toggleSwitch.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.body.classList.remove('dark');
-        toggleSwitch.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    toggleSwitch.addEventListener('click', () => {
-      const isDark = document.body.classList.contains('dark');
-      setTheme(!isDark);
-    });
-    toggleSwitch.addEventListener('keydown', e => {
-      if(e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleSwitch.click();
-      }
-    });
-
-    // On page load, set theme from localStorage or system preference
-    (function initTheme() {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        setTheme(true);
-      } else if (savedTheme === 'light') {
-        setTheme(false);
-      } else {
-        // Default based on user system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setTheme(prefersDark);
-      }
-    })();
-
-    // Initialize page: show main slide and load mood history
-    window.onload = () => {
-      showSlide('main-slide');
-      loadHistory();
-    };
   </script>
 </body>
 </html>
